@@ -1,0 +1,21 @@
+[submodule "linux"]
+	path = linux
+	url = https://www.github.com/yuvraj1803/linux.git
+	branch = virt_tee
+[submodule "qemu"]
+	path = qemu
+	url = https://www.github.com/yuvraj1803/qemu.git
+	branch = virt_tee
+[submodule "arm-trusted-firmware"]
+	path = arm-trusted-firmware
+	url = https://www.github.com/yuvraj1803/arm-trusted-firmware.git
+	branch = virt_tee
+[submodule "u-boot"]
+	path = u-boot
+	url = https://github.com/u-boot/u-boot.git
+[submodule "buildroot"]
+	path = buildroot
+	url = https://github.com/buildroot/buildroot
+[submodule "optee_os"]
+	path = optee_os
+	url = https://github.com/OP-TEE/optee_os

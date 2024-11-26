@@ -3,20 +3,9 @@ NPROC ?= $(shell nproc)
 ROOT  ?= $(shell pwd)
 QEMU ?= qemu-system-aarch64
 
-all: buildroot u-boot linux tfa optee qemu
+all: buildroot u-boot linux tfa optee 
 
-clean: clean_tfa clean_linux clean_u-boot clean_optee clean_buildroot clean_qemu
-
-#QEMU
-
-QEMU_FLAGS ?= --target-list=aarch64-softmmu \
-			  --enable-debug \
-
-.PHONY: qemu
-qemu:
-	cd qemu && mkdir -p build && cd build && ../configure $(QEMU_FLAGS) && make -j$(NPROC)
-clean_qemu:
-	cd qemu/build/ && make clean
+clean: clean_tfa clean_linux clean_u-boot clean_optee clean_buildroot 
 
 # OPTEE
 

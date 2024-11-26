@@ -1,1 +1,1 @@
-./lkvm --kernel Image --disk rootfs.ext4
+./lkvm run --kernel Image --disk rootfs.ext4

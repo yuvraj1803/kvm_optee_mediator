@@ -19,6 +19,7 @@ OPTEE_FLAGS ?= CFG_ASLR=n \
 			CFG_ARM64_core=y \
 			CFG_TEE_CORE_LOG_LEVEL=3 \
 			CFG_ARM_GICV3=y \
+			CFG_NS_VIRTUALIZATION=y \
 			DEBUG=1	
 .PHONY: optee
 optee:
@@ -105,6 +106,7 @@ QEMU_ARGS ?= \
 		 -netdev user,id=vmnic -device virtio-net-device,netdev=vmnic
 
 run:
+	sudo sh mount_shared.sh
 	$(QEMU) $(QEMU_ARGS)
 
 debug:

@@ -1,7 +1,7 @@
 DEBUG ?= 1
 NPROC ?= $(shell nproc)
 ROOT  ?= $(shell pwd)
-QEMU ?= qemu/build/qemu-system-aarch64
+QEMU ?= qemu-system-aarch64
 
 all: buildroot u-boot linux tfa optee qemu
 
@@ -11,11 +11,10 @@ clean: clean_tfa clean_linux clean_u-boot clean_optee clean_buildroot clean_qemu
 
 QEMU_FLAGS ?= --target-list=aarch64-softmmu \
 			  --enable-debug \
-			  --enable-slirp
 
 .PHONY: qemu
 qemu:
-	cd qemu && mkdir -p build && cd build && ../configure $(QEMU_FLAGS) && make -j$(nproc)
+	cd qemu && mkdir -p build && cd build && ../configure $(QEMU_FLAGS) && make -j$(NPROC)
 clean_qemu:
 	cd qemu/build/ && make clean
 
@@ -80,7 +79,8 @@ clean_tfa:
 # Buildroot
 .PHONY: buildroot
 buildroot:
-	cd buildroot/ && make qemu_aarch64_virt_defconfig && make -j$(NPROC)
+	cp configs/br_config buildroot/.config
+	cd buildroot/ && make -j$(NPROC)
 clean_buildroot:
 	cd buildroot/ && make clean
 
@@ -108,7 +108,7 @@ QEMU_ARGS ?= \
 	     -bios $(TFA_BUILD_PATH)/../qemu_fw.bios \
 	     -drive file=linux/rootfs.ext4,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 \
 	     -m 8G \
-	     -append "rootwait nokaslr root=/dev/vda init=/sbin/init console=ttyAMA0" \
+	     -append "rootwait nokaslr root=/dev/vda rw init=/sbin/init console=ttyAMA0" \
 	     -serial mon:stdio \
 	     -serial tcp:localhost:12345 \
 		 -netdev user,id=vmnic -device virtio-net-device,netdev=vmnic

@@ -95,6 +95,7 @@ LINUX_FLAGS ?= \
 linux: buildroot
 	cd linux && make $(LINUX_FLAGS) defconfig && make $(LINUX_FLAGS) Image
 	cp buildroot/output/images/rootfs.ext4 linux/
+	cp linux/arch/arm64/boot/Image shared/Image
 clean_linux:
 	cd linux && make clean
 	rm -f linux/rootfs.ext4

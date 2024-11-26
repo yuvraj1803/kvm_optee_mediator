@@ -99,6 +99,7 @@ linux: buildroot
 clean_linux:
 	cd linux && make clean
 	rm -f linux/rootfs.ext4
+	rm -f shared/Image
 # Run
 QEMU_ARGS ?= \
 	     -nographic \

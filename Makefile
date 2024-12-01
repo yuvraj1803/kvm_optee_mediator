@@ -118,7 +118,7 @@ GDB_ARGS ?= \
 	    -ex "add-symbol-file arm-trusted-firmware/build/qemu/debug/bl2/bl2.elf" \
 	    -ex "add-symbol-file arm-trusted-firmware/build/qemu/debug/bl31/bl31.elf" \
 	    -ex "add-symbol-file linux/vmlinux" \
-	    -ex "add-symbol-file tee/build/tee.elf" \
+	    -ex "add-symbol-file optee_os/out/arm/core/tee.elf" \
 	    -ex "target remote localhost:1234"
 
 gdb:

@@ -100,7 +100,7 @@ QEMU_ARGS ?= \
 	     -bios $(TFA_BUILD_PATH)/../qemu_fw.bios \
 	     -drive file=linux/rootfs.ext4,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 \
 	     -m 8G \
-	     -append "rootwait nokaslr root=/dev/vda rw init=/sbin/init console=ttyAMA0" \
+	     -append "rootwait nokaslr root=/dev/vda rw init=/sbin/init console=ttyAMA0 kvm-arm.mode=protected" \
 	     -serial mon:stdio \
 	     -serial tcp:localhost:12345 \
 		 -netdev user,id=vmnic -device virtio-net-device,netdev=vmnic
@@ -119,7 +119,10 @@ GDB_ARGS ?= \
 	    -ex "add-symbol-file arm-trusted-firmware/build/qemu/debug/bl31/bl31.elf" \
 	    -ex "add-symbol-file linux/vmlinux" \
 	    -ex "add-symbol-file optee_os/out/arm/core/tee.elf" \
-	    -ex "target remote localhost:1234"
+	    -ex "target remote localhost:1234" \
+	    -ex "source gdb_scripts/aarch64.gdb" #aarch64.gdb helps in breaking into nvhe symbols. this uses vabits_actual as 62. if this values changes, the breakpoints might not get hit. change this var accordingly. check https://elixir.bootlin.com/linux/v6.9.12/source/arch/arm64/include/asm/memory.h#L233 on how this is calculated when CONFIG_ARM64_VA_BITS is 52.
+
+
 
 gdb:
 	gdb-multiarch $(GDB_ARGS)

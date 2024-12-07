@@ -1,0 +1,1 @@
+qemu-system-aarch64 -kernel Image -drive file=rootfs.ext4,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 -nographic -cpu host -smp 2 -machine virt -m 1G -serial mon:stdio -append "rootwait nokaslr root=/dev/vda rw init=/sbin/init console=ttyAMA0" --enable-kvm -dtb qemu-optee.dtb 

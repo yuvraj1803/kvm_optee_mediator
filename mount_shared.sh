@@ -1,3 +1,4 @@
+set -e
 mkdir -p root
 mount linux/rootfs.ext4 root
 cd root/root

@@ -21,7 +21,8 @@ OPTEE_FLAGS ?= CFG_ASLR=n \
 			CFG_CORE_ASLR=n \
 			CFG_ARM_GICV3=y \
 			CFG_NS_VIRTUALIZATION=y \
-			DEBUG=1	
+			DEBUG=1 \
+			CFG_VIRT_GUEST_COUNT=2	
 .PHONY: optee
 optee:
 	cd optee_os/ && make $(OPTEE_FLAGS)

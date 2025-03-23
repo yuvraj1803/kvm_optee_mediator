@@ -102,7 +102,7 @@ QEMU_ARGS ?= \
 	     -bios $(TFA_BUILD_PATH)/../qemu_fw.bios \
 	     -drive file=linux/rootfs.ext4,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 \
 	     -m 8G \
-	     -append "rootwait nokaslr root=/dev/vda rw init=/sbin/init console=ttyAMA0" \
+	     -append "kvm-arm.mode=protected rootwait nokaslr root=/dev/vda rw init=/sbin/init console=ttyAMA0" \
 	     -serial mon:stdio \
 	     -serial tcp:localhost:12345 \
 		 -netdev user,id=vmnic -device virtio-net-device,netdev=vmnic
